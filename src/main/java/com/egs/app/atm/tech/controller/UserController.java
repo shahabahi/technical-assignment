@@ -47,8 +47,6 @@ public class UserController {
             ModelMapper modelMapper = new ModelMapper();
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
             UserDto userDto = modelMapper.map(userDetails, UserDto.class);
-            if(userService.getUserByCardNumber(userDto.getCardNumber())!=null)
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
             UserDto createdUser = userService.createUser(userDto);
             UserRest userRest = modelMapper.map(createdUser, UserRest.class);
             return new ResponseEntity(userRest, HttpStatus.CREATED);

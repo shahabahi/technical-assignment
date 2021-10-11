@@ -71,7 +71,7 @@ public class User implements Serializable {
     public void setTokenExpired(boolean tokenExpired) {
         this.tokenExpired = tokenExpired;
     }
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
