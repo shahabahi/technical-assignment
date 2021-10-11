@@ -1,0 +1,7 @@
+com/egs/app/atm/tech/persistence/model/Role.class
+com/egs/app/atm/tech/persistence/model/User.class
+com/egs/app/atm/tech/service/UsersService.class
+com/egs/app/atm/tech/persistence/dto/UserDto.class
+com/egs/app/atm/tech/service/Utils.class
+com/egs/app/atm/tech/TechnicalAssignmentApplication.class
+com/egs/app/atm/tech/controller/UserController.class

@@ -1,0 +1,14 @@
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/repository/UserRepository.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/TechnicalAssignmentApplication.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/repository/RoleRepository.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/controller/UserController.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/security/WebSecurity.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/service/impl/UsersServiceImpl.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/service/UsersService.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/model/User.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/model/Role.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/security/AuthenticationFilter.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/model/request/LoginRequestModel.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/security/AuthorizationFilter.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/persistence/dto/UserDto.java
+/home/arousha/my-project/src/main/java/com/egs/app/atm/tech/service/Utils.java
