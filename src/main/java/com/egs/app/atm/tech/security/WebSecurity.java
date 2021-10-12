@@ -10,8 +10,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -26,8 +24,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         this.usersService = usersService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-@Autowired
-private AuthenticationFailureHandler authenticationFailureHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -39,11 +36,6 @@ private AuthenticationFailureHandler authenticationFailureHandler;
                 .addFilter(new AuthorizationFilter(authenticationManager(), environment));
         http.headers().frameOptions().disable();
     }
-
-//    @Bean
-//    public AuthenticationFailureHandler authenticationFailureHandler() {
-//        return new CustomLoginFailureHandler();
-//    }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(usersService, environment, authenticationManager());

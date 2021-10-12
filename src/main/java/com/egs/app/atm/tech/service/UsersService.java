@@ -6,16 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UsersService extends UserDetailsService {
-    public static final int MAX_FAILED_ATTEMPTS = 3;
-    public static final long LOCK_TIME_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+    int MAX_FAILED_ATTEMPTS = 3;
+    long LOCK_TIME_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 
-    public void increaseFailedAttempts(User user);
+    void increaseFailedAttempts(User user);
 
-    public void lock(User user);
+    void lock(User user);
 
-    public void resetFailedAttempts(String email);
+    void resetFailedAttempts(String cardNumber);
 
-    public boolean unlockWhenTimeExpired(User user);
+    boolean unlockWhenTimeExpired(User user);
 
 
     UserDto createUser(UserDto user) throws Exception;

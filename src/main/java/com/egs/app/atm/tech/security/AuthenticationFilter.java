@@ -35,7 +35,6 @@ public class AuthenticationFilter  extends UsernamePasswordAuthenticationFilter 
         this.usersService = usersService;
         this.environment = environment;
         super.setAuthenticationManager(authenticationManager);
-//        super.setAuthenticationFailureHandler(failureHandler);
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByCardNumber(String cardNumber);
 
-    @Query("UPDATE User u SET u.failedAttempt = ?1 WHERE u.cardNumber = ?2")
+    @Query("UPDATE User u SET u.failedAttempt = ?1, u.enabled=true WHERE u.cardNumber = ?2")
     @Modifying
     public void updateFailedAttempts(int failAttempts, String cardNumber);
 }

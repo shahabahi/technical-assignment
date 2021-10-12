@@ -43,8 +43,8 @@ public class UsersServiceImpl implements UsersService {
         return new org.springframework.security.core.userdetails.User(user.getCardNumber(), user.getPassword(), authorities);
     }
 @Override
-    public void resetFailedAttempts(String email) {
-        userRepository.updateFailedAttempts(0, email);
+    public void resetFailedAttempts(String cardNumber) {
+        userRepository.updateFailedAttempts(0, cardNumber);
     }
     @Override
     public void lock(User user) {
