@@ -19,7 +19,6 @@ public class MyApplicationListener implements ApplicationListener<Authentication
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event)  {
         String cardNumber =(String) event.getAuthentication().getPrincipal();
-       // Object credentials = event.getAuthentication().getCredentials();
         UserDto userDto = userService.getUserByCardNumber(cardNumber);
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
