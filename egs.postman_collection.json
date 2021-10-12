@@ -149,10 +149,16 @@
 			"name": "localhost:8000/account/deposit",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjMTdkZmQzNi0yN2VmLTQ4NTQtYTkzYi1lN2Q1OTA3MTU2NGUiLCJzY29wZXMiOltudWxsXSwidXNlcklkIjoiYzE3ZGZkMzYtMjdlZi00ODU0LWE5M2ItZTdkNTkwNzE1NjRlIiwiZXhwIjoxNjM2NjM3NzE3fQ.I1StbkgRdJeRDZOVhqKytSNZFIYiZUcr36oFMmHaKh32T6f7Jht7-G6ZrZqsbo0ECI0M2iccttNV6Kd638xd3w",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"cardNumber\":\"7a5b4c32-9439-4343-b587-601036a68047\",\n    \"amount\":\"1000\"\n}",
+					"raw": "{\n    \"cardNumber\":\"c17dfd36-27ef-4854-a93b-e7d59071564e\",\n    \"amount\":\"1000\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
