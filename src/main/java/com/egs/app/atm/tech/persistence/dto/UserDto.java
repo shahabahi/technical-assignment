@@ -3,6 +3,7 @@ package com.egs.app.atm.tech.persistence.dto;
 import com.egs.app.atm.tech.persistence.model.Role;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -14,7 +15,8 @@ public class UserDto implements Serializable {
     private boolean enabled;
     private boolean tokenExpired;
     private Set<Role> role;
-
+    private int failedAttempt;
+    private Date lockTime;
     public Long getId() {
         return id;
     }
@@ -69,5 +71,21 @@ public class UserDto implements Serializable {
 
     public void setRole(Set<Role> role) {
         this.role = role;
+    }
+
+    public int getFailedAttempt() {
+        return failedAttempt;
+    }
+
+    public void setFailedAttempt(int failedAttempt) {
+        this.failedAttempt = failedAttempt;
+    }
+
+    public Date getLockTime() {
+        return lockTime;
+    }
+
+    public void setLockTime(Date lockTime) {
+        this.lockTime = lockTime;
     }
 }

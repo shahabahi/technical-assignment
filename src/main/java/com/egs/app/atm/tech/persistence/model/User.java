@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -21,8 +22,15 @@ public class User implements Serializable {
     private String cardNumber;
     private String name;
     private String password;
+    @Column(name = "failed_attempt")
+    private int failedAttempt;
+
     private boolean enabled;
     private boolean tokenExpired;
+    @Column(name = "lock_time")
+    private Date lockTime;
+
+
 
     public Long getId() {
         return id;
@@ -98,4 +106,21 @@ public class User implements Serializable {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public int getFailedAttempt() {
+        return failedAttempt;
+    }
+
+    public void setFailedAttempt(int failedAttempt) {
+        this.failedAttempt = failedAttempt;
+    }
+
+    public Date getLockTime() {
+        return lockTime;
+    }
+
+    public void setLockTime(Date lockTime) {
+        this.lockTime = lockTime;
+    }
+
 }

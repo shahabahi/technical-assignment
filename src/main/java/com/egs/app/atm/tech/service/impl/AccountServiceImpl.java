@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
     @Autowired
     private UserRepository userRepository;
@@ -40,7 +41,6 @@ public class AccountServiceImpl implements AccountService {
 
         return accountDto;
     }
-    @Transactional
     @Override
     public AccountDto deposit(String cardNumber, Double amount) throws Exception {
         User user = userRepository.findByCardNumber(cardNumber);

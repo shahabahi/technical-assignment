@@ -15,10 +15,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@Transactional
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
@@ -32,9 +34,41 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    @Override
+    public void increaseFailedAttempts(User user) {
+        int newFailAttempts = user.getFailedAttempt() + 1;
+        userRepository.updateFailedAttempts(newFailAttempts, user.getCardNumber());
+    }
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getCardNumber(), user.getPassword(), authorities);
+    }
+@Override
+    public void resetFailedAttempts(String email) {
+        userRepository.updateFailedAttempts(0, email);
+    }
+    @Override
+    public void lock(User user) {
+        user.setEnabled(false);
+        user.setLockTime(new Date());
+
+        userRepository.save(user);
+    }
+@Override
+    public boolean unlockWhenTimeExpired(User user) {
+        long lockTimeInMillis = user.getLockTime().getTime();
+        long currentTimeInMillis = System.currentTimeMillis();
+
+        if (lockTimeInMillis + LOCK_TIME_DURATION < currentTimeInMillis) {
+            user.setEnabled(true);
+            user.setLockTime(null);
+            user.setFailedAttempt(0);
+
+            userRepository.save(user);
+
+            return true;
+        }
+
+        return false;
     }
     @Override
     public UserDto createUser(UserDto userDetails) throws Exception {

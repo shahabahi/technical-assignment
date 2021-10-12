@@ -6,12 +6,15 @@ import com.egs.app.atm.tech.service.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -32,6 +35,7 @@ public class AuthenticationFilter  extends UsernamePasswordAuthenticationFilter 
         this.usersService = usersService;
         this.environment = environment;
         super.setAuthenticationManager(authenticationManager);
+//        super.setAuthenticationFailureHandler(failureHandler);
     }
 
     @Override
@@ -48,6 +52,12 @@ public class AuthenticationFilter  extends UsernamePasswordAuthenticationFilter 
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         String userName = ((User) authResult.getPrincipal()).getUsername();
         UserDto userDto = usersService.getUserByCardNumber(userName);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        com.egs.app.atm.tech.persistence.model.User user = modelMapper.map(userDto, com.egs.app.atm.tech.persistence.model.User.class);
+        if (user.getFailedAttempt() > 0) {
+            usersService.resetFailedAttempts(user.getCardNumber());
+        }
         String token = Jwts.builder().setSubject(userDto.getCardNumber())
                 .claim("scopes", Stream.of(userDto.getRole()).collect(Collectors.toList()))
                 .claim("userId", userDto.getCardNumber())
