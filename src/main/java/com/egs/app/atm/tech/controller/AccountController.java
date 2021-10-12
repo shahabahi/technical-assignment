@@ -1,14 +1,9 @@
 package com.egs.app.atm.tech.controller;
 
 import com.egs.app.atm.tech.persistence.dto.AccountDto;
-import com.egs.app.atm.tech.persistence.dto.UserDto;
-import com.egs.app.atm.tech.persistence.model.Account;
 import com.egs.app.atm.tech.persistence.model.request.AccountRequestModel;
-import com.egs.app.atm.tech.persistence.model.request.UserDetailsRequestModel;
 import com.egs.app.atm.tech.persistence.model.response.AccountRes;
 import com.egs.app.atm.tech.persistence.model.response.ResponseApi;
-import com.egs.app.atm.tech.persistence.model.response.UserRest;
-import com.egs.app.atm.tech.persistence.repository.AccountRepository;
 import com.egs.app.atm.tech.service.AccountService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

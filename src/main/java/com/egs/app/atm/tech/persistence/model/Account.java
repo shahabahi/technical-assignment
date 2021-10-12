@@ -1,7 +1,6 @@
 package com.egs.app.atm.tech.persistence.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "tbl_account")

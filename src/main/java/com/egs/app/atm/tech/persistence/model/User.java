@@ -1,9 +1,6 @@
 package com.egs.app.atm.tech.persistence.model;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;

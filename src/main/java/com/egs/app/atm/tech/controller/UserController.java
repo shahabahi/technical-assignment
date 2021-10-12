@@ -5,7 +5,6 @@ import com.egs.app.atm.tech.persistence.model.request.UserDetailsRequestModel;
 import com.egs.app.atm.tech.persistence.model.response.ResponseApi;
 import com.egs.app.atm.tech.persistence.model.response.UserRest;
 import com.egs.app.atm.tech.service.UsersService;
-import org.hibernate.annotations.Parameter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/users")
