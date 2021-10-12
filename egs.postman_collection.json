@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "42135515-913b-407f-9538-061ce62dcd86",
+		"name": "egs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8000/users/getUser/:cardNumber",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzY29wZXMiOltudWxsXSwicGhvbmUiOiIwOTM4NTA3MDY4OSIsImV4cCI6MTYzNTg2MzE2M30.mbJGH7HJaM2zxItDeVf5E8DHEEocuPMREHi7W14q8bs9D789ycF5NZT6Cg6QoLmMfm597cQMZndfg-4f8L2uVg",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "cardNumber",
+						"value": "4bbc53b0-4140-4641-ab7a-6bedcdc175fe",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cardNumber",
+							"value": "4bbc53b0-4140-4641-ab7a-6bedcdc175fe",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/users/getUser/:cardNumber",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"getUser",
+						":cardNumber"
+					],
+					"variable": [
+						{
+							"key": "cardNumber",
+							"value": "7a5b4c32-9439-4343-b587-601036a68047"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/users/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\":\"123456789\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/users/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "172.26.201.30:8082/users-ws/users/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardNumber\":\"7a5b4c32-9439-4343-b587-601036a68047\",\n    \"password\":\"123456789\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/users/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/account/getRemain/:cardNumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/account/getRemain/:cardNumber",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"getRemain",
+						":cardNumber"
+					],
+					"variable": [
+						{
+							"key": "cardNumber",
+							"value": "7a5b4c32-9439-4343-b587-601036a68047"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/account/deposit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardNumber\":\"7a5b4c32-9439-4343-b587-601036a68047\",\n    \"amount\":\"1000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/account/deposit",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8000/account/withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cardNumber\":\"7a5b4c32-9439-4343-b587-601036a68047\",\n    \"amount\":\"1000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/account/withdraw",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"account",
+						"withdraw"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
