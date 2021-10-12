@@ -88,8 +88,7 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "user")
     private Account account;
 
     public Account getAccount() {

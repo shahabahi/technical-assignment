@@ -11,6 +11,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -22,17 +23,12 @@ public class AccountServiceImpl implements AccountService {
     AccountRepository accountRepository;
 
     @Override
-    public AccountDto getRemain(String cardNumber) {
+    public AccountDto getBalance(String cardNumber) {
         User user = userRepository.findByCardNumber(cardNumber);
         AccountDto accountDto = new AccountDto();
         if (user != null) {
             if (user.getAccount() == null) {
-                accountDto.setRemain(0d);
-                accountDto.setUserId(user.getId());
-                ModelMapper modelMapper = new ModelMapper();
-                modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-                Account account = modelMapper.map(accountDto, Account.class);
-                accountRepository.save(account);
+                accountDto = setBalance(user);
             } else {
                 ModelMapper modelMapper = new ModelMapper();
                 modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -44,58 +40,68 @@ public class AccountServiceImpl implements AccountService {
 
         return accountDto;
     }
-
+    @Transactional
     @Override
     public AccountDto deposit(String cardNumber, Double amount) throws Exception {
         User user = userRepository.findByCardNumber(cardNumber);
-        if (user != null) {
-            if (user.getAccount() == null) {
-                throw new UsernameNotFoundException("");
-            } else {
-                if (user.getAccount().getRemain() + amount < 0) {
-                    throw new Exception("Account balance is not enough");
-                } else {
-                    user.getAccount().setRemain(user.getAccount().getRemain() + amount);
-                    accountRepository.save(user.getAccount());
-                    user = userRepository.findByCardNumber(cardNumber);
-                    if (user.getAccount().getRemain() < 0) {
-                        throw new Exception("Account balance is not enough");
-                    }
-                }
-            }
-        } else {
+        if (user == null) {
             throw new UsernameNotFoundException("");
         }
+        Account account = null;
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        if (user.getAccount() == null) {
+            AccountDto accountDto = setBalance(user);
+            accountDto.setBalance(amount);
+            account = modelMapper.map(accountDto, Account.class);
+        } else {
+            checkBalance(user.getAccount().getBalance() + amount);
+            user.getAccount().setBalance(user.getAccount().getBalance() + amount);
+            account = modelMapper.map(user.getAccount(), Account.class);
+        }
+        return getAccountDto(cardNumber, account);
+    }
+
+    private AccountDto getAccountDto(String cardNumber, Account account) throws Exception {
+        accountRepository.save(account);
+        User user = userRepository.findByCardNumber(cardNumber);
+        checkBalance(user.getAccount().getBalance());
+
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         AccountDto accountDto = modelMapper.map(user.getAccount(), AccountDto.class);
         return accountDto;
     }
 
+    private AccountDto setBalance(User user) {
+        AccountDto accountDto = new AccountDto();
+        accountDto.setBalance(0d);
+        accountDto.setUser(user);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        Account account = modelMapper.map(accountDto, Account.class);
+        accountRepository.save(account);
+        return accountDto;
+
+    }
+
     @Override
     public AccountDto withdraw(String cardNumber, Double amount) throws Exception {
         User user = userRepository.findByCardNumber(cardNumber);
-        if (user != null) {
-            if (user.getAccount() == null) {
-                throw new UsernameNotFoundException("");
-            } else {
-                if (user.getAccount().getRemain() - amount < 0) {
-                    throw new Exception("Account balance is not enough");
-                } else {
-                    user.getAccount().setRemain(user.getAccount().getRemain() - amount);
-                    accountRepository.save(user.getAccount());
-                    user = userRepository.findByCardNumber(cardNumber);
-                    if (user.getAccount().getRemain() < 0) {
-                        throw new Exception("Account balance is not enough");
-                    }
-                }
-            }
-        } else {
+        if (user == null) {
             throw new UsernameNotFoundException("");
         }
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-        AccountDto accountDto = modelMapper.map(user.getAccount(), AccountDto.class);
-        return accountDto;
+        if (user.getAccount() == null)
+            throw new UsernameNotFoundException("");
+
+        checkBalance(user.getAccount().getBalance() - amount);
+        user.getAccount().setBalance(user.getAccount().getBalance() - amount);
+        return getAccountDto(cardNumber, user.getAccount());
+    }
+
+    private void checkBalance(Double amount) throws Exception {
+        if (amount < 0)
+            throw new Exception("Account balance is not enough");
+
     }
 }

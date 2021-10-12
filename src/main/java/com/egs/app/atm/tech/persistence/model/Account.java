@@ -7,21 +7,29 @@ import java.util.Set;
 @Table(name = "tbl_account")
 public class Account {
 
-    private Double remain;
+    private Double balance;
     @Id
-    @Column(name = "user_id")
-    private Long userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long Id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Double getRemain() {
-        return remain;
+    public Double getBalance() {
+        return balance;
     }
 
-    public void setRemain(Double remain) {
-        this.remain = remain;
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public User getUser() {
@@ -30,13 +38,5 @@ public class Account {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 }

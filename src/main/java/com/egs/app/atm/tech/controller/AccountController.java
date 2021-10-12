@@ -30,13 +30,13 @@ public class AccountController {
     AccountService accountService;
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping(value="/getRemain/{cardNumber}",
+    @GetMapping(value="/getBalance/{cardNumber}",
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,
             })
     public ResponseEntity<AccountRes> getUserByCardNumber(@PathVariable("cardNumber") String cardNumber) {
-        AccountDto account = accountService.getRemain(cardNumber);
+        AccountDto account = accountService.getBalance(cardNumber);
         AccountRes returnValue = new ModelMapper().map(account, AccountRes.class);
         return new ResponseEntity(returnValue, HttpStatus.OK);
     }

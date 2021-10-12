@@ -1,13 +1,13 @@
 package com.egs.app.atm.tech.persistence.model.response;
 
 public class AccountRes {
-    private Double remain;
+    private Double balance;
 
-   public Double getRemain() {
-        return remain;
+   public Double getBalance() {
+        return balance;
     }
 
-    public void setRemain(Double remain) {
-        this.remain = remain;
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 }
